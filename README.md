@@ -1,21 +1,352 @@
-<div align="center">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FhaenixLabs · Hanah · GRC, AI Risk &amp; Sustainability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171c;
+    --ink-soft:#1a1e25;
+    --panel:#20242d;
+    --panel-line:#2c313c;
+    --paper:#ece7dc;
+    --paper-dim:#c9c4b6;
+    --ash:#8b8f9a;
+    --ember:#e85d2f;
+    --ember-deep:#b5411e;
+    --verify:#48a892;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ember);color:var(--ink);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Space Grotesk',sans-serif;}
+  body{
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+  header.bar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,23,28,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-line);
+  }
+  .bar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1040px;margin:0 auto;
+  }
+  .wordmark{display:flex;align-items:center;gap:10px;font-size:15px;letter-spacing:0.06em;}
+  .glyph{width:20px;height:20px;position:relative;flex-shrink:0;}
+  .glyph svg{width:100%;height:100%;}
+  .wordmark b{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.02em;}
+  .status{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.08em;color:var(--ash);text-transform:uppercase;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--verify);box-shadow:0 0 0 0 rgba(72,168,146,0.6);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(72,168,146,0.5);}70%{box-shadow:0 0 0 6px rgba(72,168,146,0);}100%{box-shadow:0 0 0 0 rgba(72,168,146,0);}}
+  nav.links{display:flex;gap:22px;font-size:12px;}
+  nav.links a{color:var(--ash);letter-spacing:0.04em;transition:color .15s;}
+  nav.links a:hover{color:var(--paper);}
+  @media(max-width:640px){ nav.links{display:none;} }
+  .hero{padding:96px 0 80px;position:relative;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ember);margin-bottom:22px;}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--ember);}
+  h1.name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(48px,9vw,92px);line-height:0.98;letter-spacing:-0.02em;background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 60%,var(--ember) 160%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .tagline{margin-top:20px;font-size:clamp(16px,2.4vw,20px);color:var(--paper-dim);max-width:540px;font-weight:400;}
+  .tagline b{color:var(--paper);font-weight:600;}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.04em;padding:6px 12px;border:1px solid var(--panel-line);border-radius:var(--radius);color:var(--ash);}
+  .tag.accent{border-color:rgba(232,93,47,0.4);color:var(--ember);}
+  .tag.verify{border-color:rgba(72,168,146,0.4);color:var(--verify);}
+  section{padding:72px 0;border-top:1px solid var(--panel-line);}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:40px;}
+  .sec-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ember);}
+  .sec-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:26px;letter-spacing:-0.01em;}
+  .sec-sub{color:var(--ash);font-size:14px;margin-top:-28px;margin-bottom:36px;max-width:480px;}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start;}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-text p{color:var(--paper-dim);font-size:15.5px;margin-bottom:16px;}
+  .about-text p b{color:var(--paper);}
+  .avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid var(--ember);padding:3px;margin-bottom:20px;}
+  .readout{background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);padding:24px;}
+  .readout-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--panel-line);font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  .readout-row:last-child{border-bottom:none;}
+  .readout-row span:first-child{color:var(--ash);letter-spacing:0.04em;}
+  .readout-row span:last-child{color:var(--paper);text-align:right;}
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .cert{border:1px solid var(--panel-line);background:var(--panel);border-radius:var(--radius);padding:20px;position:relative;overflow:hidden;transition:border-color .2s;}
+  .cert:hover{border-color:rgba(72,168,146,0.5);}
+  .cert::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--verify);}
+  .cert-check{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--verify);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+  .cert h4{font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:600;margin-bottom:4px;}
+  .cert p{font-size:12.5px;color:var(--ash);}
+  .case{border:1px solid var(--panel-line);background:var(--panel);border-radius:var(--radius);padding:26px 28px;margin-bottom:16px;transition:border-color .2s,transform .2s;display:block;}
+  .case:hover{border-color:rgba(232,93,47,0.5);transform:translateX(2px);}
+  .case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:10px;}
+  .case-id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ember);letter-spacing:0.06em;}
+  .case-status{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ash);border:1px solid var(--panel-line);padding:3px 8px;border-radius:var(--radius);white-space:nowrap;}
+  .case h4{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;margin-bottom:8px;}
+  .case p{color:var(--paper-dim);font-size:14px;margin-bottom:14px;max-width:640px;}
+  .case-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .case-tags span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ash);background:var(--ink-soft);padding:4px 9px;border-radius:var(--radius);}
+  .case-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--ember);font-weight:500;}
+  .impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+  .impact{border:1px solid var(--panel-line);background:var(--panel);border-radius:var(--radius);padding:24px 26px;transition:border-color .2s;}
+  .impact:hover{border-color:rgba(232,93,47,0.4);}
+  .impact-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;}
+  .impact-icon{width:42px;height:42px;border-radius:8px;background:rgba(232,93,47,0.08);border:1px solid rgba(232,93,47,0.28);display:flex;align-items:center;justify-content:center;color:var(--ember);margin-bottom:16px;}
+  .impact-icon svg{width:22px;height:22px;}
+  .cadence{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;padding:4px 9px;border-radius:var(--radius);white-space:nowrap;}
+  .cadence.monthly{color:var(--ember);border:1px solid rgba(232,93,47,0.4);}
+  .cadence.ongoing{color:var(--verify);border:1px solid rgba(72,168,146,0.4);}
+  .cadence.planned{color:var(--ash);border:1px solid var(--panel-line);}
+  .impact h4{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin-bottom:14px;}
+  .impact-field{margin-bottom:14px;}
+  .impact-field:last-child{margin-bottom:0;}
+  .impact-field .fl{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ash);margin-bottom:5px;}
+  .impact-field p{font-size:13.5px;color:var(--paper-dim);}
+  .post{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:20px 0;border-bottom:1px solid var(--panel-line);}
+  .post:last-child{border-bottom:none;}
+  .post-date{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ash);min-width:90px;}
+  .post-main{flex:1;}
+  .post h4{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:5px;}
+  .post p{font-size:13px;color:var(--ash);}
+  .post-arrow{color:var(--ember);font-size:14px;}
+  footer{padding:64px 0 48px;border-top:1px solid var(--panel-line);}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;}
+  footer h3{font-family:'Space Grotesk',sans-serif;font-size:24px;margin-bottom:10px;}
+  footer p{color:var(--ash);font-size:13.5px;max-width:360px;}
+  .foot-links{display:flex;gap:20px;}
+  .foot-links a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--paper-dim);border-bottom:1px solid var(--panel-line);padding-bottom:2px;transition:color .15s,border-color .15s;}
+  .foot-links a:hover{color:var(--ember);border-color:var(--ember);}
+  .foot-base{margin-top:40px;padding-top:20px;border-top:1px solid var(--panel-line);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--panel-line);letter-spacing:0.04em;}
+</style>
+</head>
+<body>
 
-# Hi! 👋, I'm Farhanah
+<header class="bar">
+  <div class="bar-inner">
+    <div class="wordmark">
+      <span class="glyph">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C12 2 7 7.5 7 13a5 5 0 0 0 10 0c0-2-1-3.5-1-3.5s.5 2-1 3.2c.3-1.5-.2-3-1.3-4.2C13 10 12 12 12 12s-2-2.5-1-6.5C11.4 4 12 2 12 2Z" stroke="#e85d2f" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <b>FHAENIXLABS</b>
+    </div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#work">Case Files</a>
+      <a href="#impact">Impact</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="status"><span class="dot"></span> Systems Nominal</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow mono">GRC · CYBER RISK · AI RISK</div>
+    <h1 class="name">FhaenixLabs</h1>
+    <p class="tagline">I'm <b>Hanah</b>, a GRC practitioner assessing security controls, third-party risk, and data protection across enterprise IT. Currently moving intentionally toward the intersection of technology risk, AI risk, and cyber governance.</p>
+    <div class="hero-tags">
+      <span class="tag accent">AI Risk</span>
+      <span class="tag verify">Third-Party Risk (TPRM)</span>
+      <span class="tag">Data Protection</span>
+      <span class="tag">Cyber Risk</span>
+      <span class="tag">Analytics</span>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head">
+      <span class="sec-num mono">01</span>
+      <h2 class="sec-title display">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I work across <b>security controls assessment, third-party risk assessments, Data Protection Impact Assessments (DPIAs)</b>, and cybersecurity policy analysis. At Accenture, I'm a Transformation Excellence Consultant within Cloud Strategy and Advisory (Technology Strategy &amp; Transformation), with a portfolio in cybersecurity: the space I'm most interested in.</p>
+        <p>Beyond GRC work, I'm bringing my data analytics background into practice, building tools that make risk work more accessible, measurable, and efficient. I care about learning from and with others. I've mentored junior risk assessors on assessment methodologies, stakeholder interviews, and evidence validation, recognized as <b>2025 Q3 Professional Mentor Champion</b> at Accenture's Technology Strategy &amp; Transformation Town Hall.</p>
+        <p>I'm moving intentionally toward the intersection of <b>technology risk, AI risk, and cyber governance</b>, most recently completing ISACA's AI Risk Management Bootcamp at the CIAG Conference 2026, with a particular interest in third-party and vendor AI risk. Open to conversations and opportunities in that space.</p>
+      </div>
+      <div class="readout">
+        <div class="readout-row"><span>IN SECURITY SINCE</span><span>Sept 2023</span></div>
+        <div class="readout-row"><span>FOCUS</span><span>Tech Risk · TPRM · Data Protection · GRC · AI Risk</span></div>
+        <div class="readout-row"><span>BASED</span><span>Kuala Lumpur, MY</span></div>
+        <div class="readout-row"><span>GITHUB</span><span>@ihnh</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="sec-head">
+      <span class="sec-num mono">02</span>
+      <h2 class="sec-title display">Certifications</h2>
+    </div>
+    <p class="sec-sub">Six credentials, most recent first.</p>
+    <div class="cert-grid">
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>ISO/IEC 27001:2022 Lead Auditor</h4>
+        <p>BSI, 2026</p>
+      </div>
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>AI-900</h4>
+        <p>Microsoft Azure AI Fundamentals, 2026</p>
+      </div>
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>AWS Certified AI Practitioner</h4>
+        <p>Amazon Web Services, 2026</p>
+      </div>
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>SC-900</h4>
+        <p>Microsoft Security, Compliance &amp; Identity Fundamentals, 2025</p>
+      </div>
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>AWS Certified Cloud Practitioner</h4>
+        <p>Amazon Web Services, 2024</p>
+      </div>
+      <div class="cert">
+        <div class="cert-check">✓ Verified</div>
+        <h4>AZ-900</h4>
+        <p>Microsoft Azure Fundamentals, 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-head">
+      <span class="sec-num mono">03</span>
+      <h2 class="sec-title display">Case Files</h2>
+    </div>
+    <p class="sec-sub">Projects pulled from GitHub: professional case studies and side experiments alike.</p>
+
+    <a class="case" href="https://github.com/ihnh/Web-App-Azure-Migration" target="_blank" rel="noopener">
+      <div class="case-top">
+        <span class="case-id">CASE-001</span>
+        <span class="case-status">PUBLIC</span>
+      </div>
+      <h4>Web App Azure Migration</h4>
+      <p>A case study on migrating ReadRadar, a book recommendation application, to Azure: cost management, resource creation, storage accounts, VMs, and monitoring tools.</p>
+      <div class="case-tags"><span>Azure</span><span>Cloud Migration</span><span>Cost Management</span></div>
+      <div class="case-link">View repository →</div>
+    </a>
+
+    <a class="case" href="https://github.com/ihnh/AI-Case-Study-Projects" target="_blank" rel="noopener">
+      <div class="case-top">
+        <span class="case-id">CASE-002</span>
+        <span class="case-status">PUBLIC · PYTHON</span>
+      </div>
+      <h4>AI Case Study Projects</h4>
+      <p>A collection of applied AI case studies. Add a short description here of what each one explores (model behavior, risk scenarios, use cases, etc.).</p>
+      <div class="case-tags"><span>Python</span><span>AI/ML</span><span>Case Study</span></div>
+      <div class="case-link">View repository →</div>
+    </a>
+
+  </section>
+
+  <section id="impact">
+    <div class="sec-head">
+      <span class="sec-num mono">04</span>
+      <h2 class="sec-title display">Impact &amp; Initiatives</h2>
+    </div>
+    <p class="sec-sub">Self-initiated commitments in progress.</p>
+
+    <div class="impact-grid">
+      <div class="impact">
+        <div class="impact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11.5v4.5c0 1.5 2.5 3 6 3s6-1.5 6-3v-4.5"/></svg>
+        </div>
+        <div class="impact-top">
+          <h4>Pave It Forward</h4>
+          <span class="cadence ongoing">Running</span>
+        </div>
+        <div class="impact-field">
+          <span class="fl">Objective</span>
+          <p>Advocating for allyship in IT.</p>
+        </div>
+        <div class="impact-field">
+          <span class="fl">How</span>
+          <p>Sponsoring one certification a month, lowering the cost barrier to entering IT and tech.</p>
+        </div>
+      </div>
+
+      <div class="impact">
+        <div class="impact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V5l7-3z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+        </div>
+        <div class="impact-top">
+          <h4>Responsible AI</h4>
+          <span class="cadence ongoing">Running</span>
+        </div>
+        <div class="impact-field">
+          <span class="fl">Objective</span>
+          <p>Promoting socially and environmentally responsible use of AI, locally.</p>
+        </div>
+        <div class="impact-field">
+          <span class="fl">How</span>
+          <p>Reducing the negative social impacts caused by AI misuse, through education and awareness.</p>
+        </div>
+      </div>
+
+      <div class="impact">
+        <div class="impact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1.8 2.4 2.8 4.3 2.8 6.2a2.8 2.8 0 1 1-5.6 0c0-.9.3-1.7.8-2.4"/><path d="M12 11v11"/></svg>
+        </div>
+        <div class="impact-top">
+          <h4>Pass the Torch</h4>
+          <span class="cadence ongoing">Running</span>
+        </div>
+        <div class="impact-field">
+          <span class="fl">Objective</span>
+          <p>Sharing foundational data, cloud, and security concepts.</p>
+        </div>
+        <div class="impact-field">
+          <span class="fl">How</span>
+          <p>Peer mentoring to support people starting their journey into the field.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="foot-grid">
+      <div>
+        <h3 class="display">Let's talk.</h3>
+        <p>Open to GRC / AI risk work, research collaborations, or just a conversation about resilient systems.</p>
+      </div>
+      <div class="foot-links">
+        <a href="assets/Hanah_I_Resume.pdf" target="_blank" rel="noopener">Download CV</a>
+        <a href="https://github.com/ihnh" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/ihnh/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:fhaenixlabs@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="foot-base mono">FHAENIXLABS © 2026 · BUILT ON GITHUB PAGES</div>
+  </footer>
 
 </div>
 
-
-
-<div align="center">
-
-## My new rabbit hole is security!
-
-</div>
-
-
-## Currently Working On
-
-- [ ] Learning about implementing Azure AI Services, Open AI
-- [ ] Learning about cloud security
+</body>
+</html>
 
 
